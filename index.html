@@ -72,6 +72,17 @@
       place-items: center;
       padding: 34px 0 20px;
       perspective: 1400px;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.45s ease, visibility 0.45s ease, min-height 0.45s ease, padding 0.45s ease;
+    }
+
+    .intro.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      min-height: 0;
+      padding: 0;
     }
 
     .intro-wrap {
@@ -539,7 +550,7 @@
     @media (max-width: 640px) {
       .hero-actions { flex-direction: column; }
       .btn { width: 100%; }
-      .intro { min-height: auto; padding-top: 28px; }
+      .intro { min-height: 100vh; padding-top: 28px; }
       .screen { min-height: 430px; padding: 16px; }
       .intro-logo img { width: 78px; height: 78px; }
       .agenda-card { top: 88px; }
@@ -770,12 +781,17 @@
 
   <script>
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const introSection = document.querySelector(".intro");
     const informationSection = document.querySelector("#informacoes");
 
-    if (!prefersReducedMotion && informationSection) {
+    if (!prefersReducedMotion && informationSection && introSection) {
       window.setTimeout(() => {
         informationSection.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 4200);
+
+      window.setTimeout(() => {
+        introSection.classList.add("is-hidden");
+      }, 4800);
     }
   </script>
 </body>
